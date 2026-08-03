@@ -85,8 +85,10 @@ cursor --no-sandbox
 
 ## Related projects
 
+- [portfolio-v2](https://axe01010.github.io/portfolio-v2/) — all projects in one place
 - [skills-orchestrator](https://github.com/axe01010/skills-orchestrator) — Cursor skills for Android dev
 - [nothing-phone-bootloop-recovery](https://github.com/axe01010/nothing-phone-bootloop-recovery) — Android recovery guide
+- [security-research-hub](https://github.com/axe01010/security-research-hub) — APK analysis writeups
 
 ## License
 
