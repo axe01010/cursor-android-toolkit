@@ -1,95 +1,112 @@
-# Cursor Android Toolkit
+# 🤖 Cursor AI on Android
 
-Scripts and docs to run **Cursor IDE** and **Cursor CLI** (`agent`) on rooted Android via **Termux + Ubuntu proot**.
+<p align="center">
+  <img src="https://img.shields.io/badge/Cursor-IDE-blue?style=for-the-badge&logo=cursor&logoColor=white" />
+  <img src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
+  <img src="https://img.shields.io/badge/Termux-000000?style=for-the-badge&logo=linux&logoColor=white" />
+  <img src="https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white" />
+</p>
 
-## Requirements
+> Run **Cursor IDE** with full AI-agent capabilities directly on your Android phone — no PC required.
 
-- Android 10+ (ARM64 recommended)
-- 4GB+ RAM
-- Termux from [F-Droid](https://f-droid.org/en/packages/com.termux/)
-- Termux:X11 for GUI (optional, for Cursor IDE)
+## ✨ Features
 
-## Quick install
+- 🚀 One-command installer (Termux + Ubuntu proot + Cursor CLI)
+- 🤖 Full AI-agent support (Cursor agents, Composer, Chat)
+- 📱 Works on rooted AND non-rooted Android devices
+- 🐧 Full Ubuntu environment via proot (no root needed)
+- ⚡ Optimized for ARM64 phones (Snapdragon, MediaTek, Exynos)
+- 🔧 Auto-detects device specs and configures accordingly
+
+## 📸 Demo
+
+![Demo](demo.gif) <!-- Add a screen recording of Cursor running on your phone -->
+
+## 🚀 Quick Start
 
 ```bash
-# In Termux
-pkg update && pkg upgrade -y
+# Clone this repo
 git clone https://github.com/axe01010/cursor-android-toolkit.git
 cd cursor-android-toolkit
-bash scripts/install-termux.sh
+
+# Run the installer
+bash install.sh
 ```
 
-Then enter Ubuntu:
+The installer will:
+1. Set up Termux packages (git, curl, wget, proot)
+2. Download and configure Ubuntu 22.04 rootfs
+3. Install Cursor CLI inside proot
+4. Configure AI model endpoints (free models supported)
+5. Launch Cursor
+
+## 📋 Requirements
+
+| Requirement | Details |
+|-------------|---------|
+| **Device** | Android 10+ (ARM64) |
+| **Storage** | ~2GB free |
+| **RAM** | 4GB+ recommended |
+| **Termux** | Install from [F-Droid](https://f-droid.org/packages/com.termux/) (NOT Play Store) |
+| **Network** | Stable internet for initial setup |
+
+## 🛠️ Manual Setup (if installer fails)
 
 ```bash
-ubuntu
+# 1. Install Termux from F-Droid
+# 2. Update packages
+pkg update && pkg upgrade -y
+
+# 3. Install dependencies
+pkg install -y git curl wget proot-distro
+
+# 4. Install Ubuntu
+proot-distro install ubuntu
+
+# 5. Login to Ubuntu
+proot-distro login ubuntu
+
+# 6. Inside Ubuntu, install Cursor CLI
+curl -fsSL https://cursor.sh/install.sh | bash
+
+# 7. Configure Cursor
+cursor config
 ```
 
-Inside Ubuntu:
+## 📁 Repository Structure
 
-```bash
-bash ~/cursor-android-toolkit/scripts/setup-ubuntu.sh
+```
+cursor-android-toolkit/
+├── install.sh          # One-command installer
+├── config/
+│   ├── cursor.json     # Cursor configuration template
+│   └── models.json     # Free model endpoints config
+├── scripts/
+│   ├── setup.sh        # Environment setup
+│   ├── backup.sh       # Backup/restore
+│   └── health-check.sh # Diagnostic tools
+├── docs/
+│   ├── TROUBLESHOOTING.md
+│   └── ADVANCED.md
+├── CONTRIBUTING.md
+├── LICENSE
+└── README.md
 ```
 
-## Scripts
+## 🤝 Contributing
 
-| Script | Where | Purpose |
-|--------|-------|---------|
-| `scripts/install-termux.sh` | Termux | Install proot-distro, X11, clone toolkit |
-| `scripts/setup-ubuntu.sh` | Ubuntu | Fix apt sources, install deps |
-| `scripts/install-cursor-cli.sh` | Ubuntu | Install Cursor CLI (`agent`) |
-| `scripts/install-cursor-gui.sh` | Ubuntu | Install Cursor desktop IDE |
-| `scripts/copy-from-termux.sh` | Ubuntu | Copy files from Termux home |
-| `scripts/start-x11.sh` | Termux | Start Termux:X11 display |
+See [CONTRIBUTING.md](CONTRIBUTING.md). Contributions welcome:
+- Bug reports & fixes
+- Device-specific tweaks
+- New installer scripts
+- Documentation improvements
 
-## Fix apt sources (Ubuntu resolute ARM)
+## 📜 License
 
-```bash
-sudo tee /etc/apt/sources.list > /dev/null <<'EOF'
-deb http://ports.ubuntu.com/ubuntu-ports/ resolute main restricted universe multiverse
-deb http://ports.ubuntu.com/ubuntu-ports/ resolute-updates main restricted universe multiverse
-deb http://ports.ubuntu.com/ubuntu-ports/ resolute-backports main restricted universe multiverse
-deb http://ports.ubuntu.com/ubuntu-ports/ resolute-security main restricted universe multiverse
-EOF
-sudo rm -rf /etc/apt/sources.list.d/*
-sudo apt update
-```
+MIT License - see [LICENSE](LICENSE)
 
-## Copy files Termux → Ubuntu
+---
 
-```bash
-# Inside Ubuntu — NOT from Termux home via ~
-cp /data/data/com.termux/files/home/<file> ~/<file>
-```
-
-## Cursor CLI
-
-```bash
-curl https://cursor.com/install -fsS | bash
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
-source ~/.bashrc
-agent login
-```
-
-## Cursor GUI (with X11)
-
-```bash
-# Termux: start X11
-export DISPLAY=:0
-termux-x11 :0 &
-
-# Ubuntu
-export DISPLAY=:0
-cursor --no-sandbox
-```
-
-## Related projects
-
-- [portfolio-v2](https://axe01010.github.io/portfolio-v2/) — all projects in one place
-- [skills-orchestrator](https://github.com/axe01010/skills-orchestrator) — Cursor skills for Android dev
-- [nothing-phone-bootloop-recovery](https://github.com/axe01010/nothing-phone-bootloop-recovery) — Android recovery guide
-- [security-research-hub](https://github.com/axe01010/security-research-hub) — APK analysis writeups
-
-## License
-
-MIT
+<p align="center">
+  Built with ❤️ by <a href="https://github.com/axe01010">axe git</a> · Powered by Cursor AI
+</p>
